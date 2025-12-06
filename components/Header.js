@@ -18,7 +18,7 @@ export default function Header() {
   ];
 
   return (
-    <motion.header
+    <motion.Header
       id="home"
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -97,6 +97,6 @@ export default function Header() {
           )}
         </AnimatePresence>
       </div>
-    </motion.header>
+    </motion.Header>
   );
 }

@@ -19,7 +19,7 @@ export default function ServicesLayout({ children }) {
   return (
     <>
       {/* الهيدر */}
-      <Header />
+      <header />
 
       {/* محتوى الصفحة */}
       <main className="min-h-screen">{children}</main>

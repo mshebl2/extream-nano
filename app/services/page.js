@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Header from "@/components/Header"; // <- تأكد من وجود هذا الملف
 
 export default function ServicesPage() {
   const services = [
@@ -51,12 +52,12 @@ export default function ServicesPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="text-center py-12 bg-white shadow-md">
+      <Header className="text-center py-12 bg-white shadow-md">
         <h1 className="text-4xl font-bold text-[#7F3F97] mb-4">خدماتنا</h1>
         <p className="text-gray-700 text-lg max-w-xl mx-auto">
           نقدم أفضل خدمات العناية بالسيارات في الرياض باستخدام مواد وتقنيات عالية الجودة.
         </p>
-      </header>
+      </Header>
 
       {/* Services Grid */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

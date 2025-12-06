@@ -1,6 +1,6 @@
 import Link from "next/link"; // <-- أضف هذا السطر
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 // قاعدة بيانات المقالات
 const posts = {
