@@ -146,21 +146,21 @@ export default function ServicesPage() {
 
         setUploadingImage(true);
         try {
-            const formData = new FormData();
-            formData.append('file', file);
+            const uploadFormData = new FormData();
+            uploadFormData.append('file', file);
 
             const res = await fetch('/api/images/upload', {
                 method: 'POST',
-                body: formData,
+                body: uploadFormData,
             });
 
             if (res.ok) {
                 const data = await res.json();
-                setFormData({
-                    ...formData,
+                setFormData(prev => ({
+                    ...prev,
                     imageFileId: data.fileId,
                     image: data.url,
-                });
+                }));
                 setImagePreview(data.url);
             } else {
                 alert('فشل رفع الصورة');
