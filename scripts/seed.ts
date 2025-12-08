@@ -10,9 +10,7 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://eslamabdaltif:oneo
 const services = [
     {
         slug: 'ppf',
-        title: 'Paint Protection Film (PPF)',
         titleAr: 'فيلم حماية الطلاء (PPF)',
-        description: 'Protect your car from daily hazards like scratches, impacts, bug stains, and harsh weather with our high-quality paint protection film.',
         descriptionAr: 'احمِ سيارتك من المخاطر اليومية، مثل الخدوش والصدمات وبقع الحشرات والطقس القاسي، مع فيلم حماية الطلاء عالي الجودة.',
         longDescription: 'Paint protection film ensures your car is protected from weather, dust, and daily scratches. Suitable for all car types in Riyadh.',
         longDescriptionAr: 'فيلم حماية الطلاء يضمن حماية السيارة من العوامل الجوية والأتربة والخدوش اليومية. مناسب لجميع أنواع السيارات في الرياض.',
@@ -22,9 +20,7 @@ const services = [
     },
     {
         slug: 'tint',
-        title: 'Window Tinting',
         titleAr: 'تظليل النوافذ',
-        description: 'Our premium window tinting solutions are designed for optimal heat insulation, UV protection, and enhanced privacy.',
         descriptionAr: 'صُممت حلول تظليل النوافذ المتميزة لدينا لعزل الحرارة بشكل مثالي، وحماية من الأشعة فوق البنفسجية، وتعزيز الخصوصية.',
         longDescription: 'Tinting keeps your car cool and reduces harmful sun rays, making driving in Riyadh more comfortable and private.',
         longDescriptionAr: 'التظليل يحافظ على برودة السيارة ويقلل أشعة الشمس الضارة، مما يجعل قيادة سيارتك في الرياض أكثر راحة وخصوصية.',
@@ -34,9 +30,7 @@ const services = [
     },
     {
         slug: 'nano-exterior',
-        title: 'Exterior Nano Ceramic',
         titleAr: 'النانو سيراميك خارجي',
-        description: 'Enhance your car\'s shine and long-term durability with our advanced nano ceramic coating. Resists water, dirt, and contaminants.',
         descriptionAr: 'عزز لمعان سيارتك ومتانتها على المدى الطويل مع طلاء النانو سيراميك المتطور لدينا. يقاوم الماء والأوساخ والملوثات.',
         longDescription: 'Exterior nano ceramic provides protection against minor scratches, dirt, and rain, with a long-lasting shine in Riyadh\'s hot climate.',
         longDescriptionAr: 'النانو سيراميك الخارجي يمنح السيارة حماية ضد الخدوش البسيطة، الأوساخ، والأمطار، مع لمعان يدوم طويلاً في مناخ الرياض الحار.',
@@ -46,9 +40,7 @@ const services = [
     },
     {
         slug: 'nano-interior',
-        title: 'Interior Nano Ceramic',
         titleAr: 'النانو سيراميك داخلي',
-        description: 'Keep your car\'s interior looking fresh with our specialized treatments for fabric and leather surfaces.',
         descriptionAr: 'حافظ على مظهر سيارتك الداخلي منتعشاً مع معالجاتنا المتخصصة للأسطح القماشية والجلدية.',
         longDescription: 'Interior nano ceramic protects surfaces from stains and dust, makes cleaning easier and ensures a luxurious interior look always.',
         longDescriptionAr: 'النانو سيراميك الداخلي يحمي الأسطح من البقع والغبار، ويجعل تنظيف السيارة أسهل ويضمن مظهر داخلي فاخر دائمًا.',
@@ -58,9 +50,7 @@ const services = [
     },
     {
         slug: 'polishing',
-        title: 'Interior & Exterior Polishing',
         titleAr: 'تلميع داخلي وخارجي',
-        description: 'Comprehensive polishing service for interior and exterior to give your car exceptional and long-lasting shine.',
         descriptionAr: 'خدمة تلميع شاملة للداخل والخارج لإعطاء سيارتك لمعاناً استثنائياً ومظهراً جديداً يدوم طويلاً.',
         longDescription: 'Polishing restores your car\'s new appearance, removes minor scratches and fading, with additional protection for the car paint in Riyadh.',
         longDescriptionAr: 'التلميع يعيد للسيارة مظهرها الجديد، ويزيل الخدوش البسيطة والبهتان، مع حماية إضافية لطلاء السيارة في الرياض.',
@@ -70,9 +60,7 @@ const services = [
     },
     {
         slug: 'premium',
-        title: 'Premium Car Services',
         titleAr: 'خدمات مميزة لسيارتك',
-        description: 'Enjoy the ultimate pampering for your car with XTREME NANO premium care services.',
         descriptionAr: 'استمتع بأقصى درجات الدلال لسيارتك مع خدمات العناية الفائقة من اكس تريم نانو.',
         longDescription: 'Premium services include comprehensive cleaning, paint protection, polishing, and tinting for a unique car experience in Riyadh.',
         longDescriptionAr: 'خدمات مميزة تشمل تنظيف شامل، حماية طلاء، تلميع، وتظليل، لتجربة فريدة لسيارتك في الرياض.',
@@ -86,9 +74,7 @@ const services = [
 const blogs = [
     {
         slug: 'العناية-بالسيارات-بالرياض',
-        title: 'Car Care Services in Riyadh - Xtreme Nano',
         titleAr: 'خدمات العناية بالسيارات بالرياض – من اكستريم نانو Xtreme Nano',
-        description: 'Discover Xtreme Nano in Riyadh, the best center for comprehensive car care.',
         descriptionAr: 'اكتشف اكستريم نانو بالرياض، المركز الأفضل في العناية المتكاملة بالسيارات. نقدم حماية الطلاء الأصلية، تلميع النانو سيراميك، العزل الحراري، والتنظيف الداخلي الفاخر بأعلى جودة.',
         content: 'Discover Xtreme Nano in Riyadh, the best center for comprehensive car care. We offer original paint protection, nano ceramic polishing, thermal insulation, and luxury interior cleaning with the highest quality. Experience and professionalism that keeps your car always like new. Book now at Xtreme Nano Riyadh and enjoy a service worthy of your luxury car!',
         contentAr: 'اكتشف اكستريم نانو بالرياض، المركز الأفضل في العناية المتكاملة بالسيارات. نقدم حماية الطلاء الأصلية، تلميع النانو سيراميك، العزل الحراري، والتنظيف الداخلي الفاخر بأعلى جودة. خبرة واحترافية تجعل سيارتك دائمًا كالجديدة. احجز الآن في اكستريم نانو بالرياض وتمتع بخدمة تليق بسيارتك الفاخرة!',
@@ -97,9 +83,7 @@ const blogs = [
     },
     {
         slug: 'حماية-السيارات-بالرياض',
-        title: 'Car Protection in Riyadh from Xtreme Nano | Best XPEL, PPF and Nano Ceramic Technologies for 2025',
         titleAr: 'حماية السيارات بالرياض من اكستريم نانو | أفضل تقنيات XPEL وPPF والنانو سيراميك لعام 2025',
-        description: 'Your car\'s protection starts at Xtreme Nano Riyadh!',
         descriptionAr: 'حماية سيارتك تبدأ من اكستريم نانو بالرياض! اكتشف أحدث تقنيات حماية الطلاء باستخدام أفلام XPEL وPPF والنانو سيراميك لعام 2025 مع ضمانات معتمدة وجودة عالمية تحافظ على لمعان سيارتك ومظهرها الفاخر.',
         content: 'Your car\'s protection starts at Xtreme Nano Riyadh! Discover the latest paint protection technologies using XPEL and PPF films and nano ceramic for 2025 with certified warranties and world-class quality that maintains your car\'s shine and luxurious appearance.',
         contentAr: 'حماية سيارتك تبدأ من اكستريم نانو بالرياض! اكتشف أحدث تقنيات حماية الطلاء باستخدام أفلام XPEL وPPF والنانو سيراميك لعام 2025 مع ضمانات معتمدة وجودة عالمية تحافظ على لمعان سيارتك ومظهرها الفاخر.',

@@ -73,19 +73,19 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           {blog.image && (
             <img
               src={blog.image}
-              alt={blog.titleAr || (blog as any).title || 'Blog'}
+              alt={blog.titleAr}
               className="w-full h-80 object-cover rounded-2xl mb-8 shadow-lg"
             />
           )}
 
           {/* Title */}
           <h1 className="text-4xl font-bold text-[#7F3F97] mb-6 text-right">
-            {blog.titleAr || (blog as any).title || 'Blog'}
+            {blog.titleAr}
           </h1>
 
           {/* Description */}
           <p className="text-xl text-gray-600 mb-8 text-right leading-relaxed">
-            {blog.descriptionAr || (blog as any).description || ''}
+            {blog.descriptionAr}
           </p>
 
           {/* Content */}
