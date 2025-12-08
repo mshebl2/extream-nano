@@ -79,7 +79,7 @@ export async function PUT(req: NextRequest) {
         ).lean();
 
         // Invalidate cache
-        revalidateTag('site-images');
+        revalidateTag('site-images', 'max');
 
         return NextResponse.json({
             ...image,
@@ -114,7 +114,7 @@ export async function POST(req: NextRequest) {
         }) as any;
 
         // Invalidate cache
-        revalidateTag('site-images');
+        revalidateTag('site-images', 'max');
 
         return NextResponse.json({
             ...image.toObject(),
@@ -139,7 +139,7 @@ export async function DELETE(req: NextRequest) {
         await SiteImage.findOneAndDelete({ key });
 
         // Invalidate cache
-        revalidateTag('site-images');
+        revalidateTag('site-images', 'max');
 
         return NextResponse.json({ success: true });
     } catch (error) {
