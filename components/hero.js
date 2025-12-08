@@ -104,7 +104,7 @@ export default function Hero() {
               variants={itemVariants}
             >
               <motion.a
-                href="http://localhost:3000/services"
+                href="/services"
                 className="bg-[#e9cb1d] text-black px-8 py-4 rounded-full font-bold text-lg hover:opacity-90 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
