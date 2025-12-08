@@ -96,10 +96,14 @@
 .table th {
     background: #f8fafc;
     font-weight: 600;
-    color: #475569;
+    color: #000000;
     font-size: 0.875rem;
     text-transform: uppercase;
     letter-spacing: 0.02em;
+}
+
+.table td {
+    color: #000000;
 }
 
 .table tbody tr {
@@ -249,6 +253,7 @@
 
 .formGroup input[type="text"],
 .formGroup input[type="number"],
+.formGroup input[type="file"],
 .formGroup textarea {
     padding: 0.75rem 1rem;
     border: 2px solid #e2e8f0;
@@ -256,6 +261,7 @@
     font-size: 1rem;
     transition: all 0.2s;
     font-family: inherit;
+    color: #000000;
 }
 
 .formGroup input:focus,

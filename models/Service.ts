@@ -16,6 +16,7 @@ export interface IService extends Document {
     longDescription: string;
     longDescriptionAr: string;
     image: string;
+    imageFileId?: string;
     slug: string;
     features: IServiceFeature[];
     benefits: string[];
@@ -35,6 +36,7 @@ const ServiceSchema: Schema = new Schema({
     longDescription: { type: String, required: false },
     longDescriptionAr: { type: String, required: false },
     image: { type: String, required: false },
+    imageFileId: { type: String, required: false },
     slug: { type: String, required: true, unique: true },
     warranty: { type: String, required: false },
     warrantyAr: { type: String, required: false },

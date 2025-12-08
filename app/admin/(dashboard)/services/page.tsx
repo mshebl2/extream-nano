@@ -28,10 +28,13 @@ export default function ServicesPage() {
         descriptionAr: '',
         slug: '',
         image: '',
+        imageFileId: '',
         featured: false,
         order: 0,
     });
     const [saving, setSaving] = useState(false);
+    const [uploadingImage, setUploadingImage] = useState(false);
+    const [imagePreview, setImagePreview] = useState<string>('');
 
     useEffect(() => {
         fetchServices();
@@ -60,14 +63,19 @@ export default function ServicesPage() {
             descriptionAr: '',
             slug: '',
             image: '',
+            imageFileId: '',
             featured: false,
             order: 0,
         });
+        setImagePreview('');
         setIsModalOpen(true);
     };
 
     const handleEdit = (service: Service) => {
         setEditingService(service);
+        const imageUrl = (service as any).imageFileId 
+            ? `/api/images/${(service as any).imageFileId}` 
+            : service.image || '';
         setFormData({
             title: service.title,
             titleAr: service.titleAr,
@@ -75,9 +83,11 @@ export default function ServicesPage() {
             descriptionAr: service.descriptionAr,
             slug: service.slug,
             image: service.image || '',
+            imageFileId: (service as any).imageFileId || '',
             featured: service.featured || false,
             order: service.order || 0,
         });
+        setImagePreview(imageUrl);
         setIsModalOpen(true);
     };
 
@@ -128,6 +138,39 @@ export default function ServicesPage() {
             .replace(/\s+/g, '-')
             .replace(/-+/g, '-')
             .trim();
+    };
+
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        setUploadingImage(true);
+        try {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const res = await fetch('/api/images/upload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                setFormData({
+                    ...formData,
+                    imageFileId: data.fileId,
+                    image: data.url,
+                });
+                setImagePreview(data.url);
+            } else {
+                alert('فشل رفع الصورة');
+            }
+        } catch (error) {
+            console.error('Failed to upload image:', error);
+            alert('فشل رفع الصورة');
+        } finally {
+            setUploadingImage(false);
+        }
     };
 
     return (
@@ -269,12 +312,29 @@ export default function ServicesPage() {
                             </div>
 
                             <div className={styles.formGroup}>
-                                <label>رابط الصورة</label>
+                                <label>صورة الخدمة</label>
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleImageUpload}
+                                    disabled={uploadingImage}
+                                />
+                                {uploadingImage && <p style={{ color: '#7F3F97', fontSize: '0.875rem' }}>جاري رفع الصورة...</p>}
+                                {imagePreview && (
+                                    <div style={{ marginTop: '0.5rem' }}>
+                                        <img 
+                                            src={imagePreview} 
+                                            alt="Preview" 
+                                            style={{ maxWidth: '200px', maxHeight: '200px', borderRadius: '8px', border: '2px solid #e2e8f0' }}
+                                        />
+                                    </div>
+                                )}
                                 <input
                                     type="text"
                                     value={formData.image}
                                     onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                                    placeholder="/images/service.jpg"
+                                    placeholder="أو أدخل رابط الصورة يدوياً"
+                                    style={{ marginTop: '0.5rem' }}
                                 />
                             </div>
 
