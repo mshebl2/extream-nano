@@ -2,8 +2,13 @@
 
 import { Target, Eye, Heart, DollarSign } from "lucide-react";
 import { motion } from "framer-motion"; // Import motion
+import { useSiteImages } from "@/lib/useSiteImages";
 
 export default function About() {
+  const { getImage } = useSiteImages({
+    "about.image": "/aboutus.png",
+  });
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -71,7 +76,7 @@ export default function About() {
           {/* Image - Left Side for RTL */}
           <motion.div className="relative" variants={imageVariants}>
             <img
-              src="/aboutus.png"
+              src={getImage("about.image", "/aboutus.png")}
               alt="Professional Car Care"
               className="w-full h-80 object-cover rounded-3xl shadow-2xl"
             />

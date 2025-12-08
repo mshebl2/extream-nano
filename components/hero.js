@@ -11,9 +11,14 @@ import {
   Check,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { useSiteImages } from "@/lib/useSiteImages";
 
 export default function Hero() {
   const [showBookingOptions, setShowBookingOptions] = useState(false);
+  const { getImage } = useSiteImages({
+    "hero.background": "/hero.svg",
+  });
+  const heroBackground = getImage("hero.background", "/hero.svg");
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -55,7 +60,7 @@ export default function Hero() {
         variants={imageVariants}
       >
         <img
-          src="/hero.svg"
+          src={heroBackground}
           alt="XTREME NANO X Background"
           className="w-full h-full object-contain max-w-6xl"
         />

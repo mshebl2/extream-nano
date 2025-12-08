@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import {
   Shield,
   Sun,
@@ -14,60 +14,36 @@ import {
 import { motion } from "framer-motion";
 import Link from "next/link";
 
+const iconMap = {
+  ppf: Shield,
+  tint: Sun,
+  "nano-exterior": Sparkles,
+  "nano-interior": Sparkles,
+  polishing: Zap,
+  premium: Car,
+};
+
 export default function Services() {
   const scrollRef = useRef(null);
+  const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const services = [
-    {
-      slug: "ppf",
-      icon: Shield,
-      title: "فيلم حماية الطلاء (PPF)",
-      description:
-        "احمِ سيارتك من المخاطر اليومية، مثل الخدوش والصدمات وبقع الحشرات والطقس القاسي، مع فيلم حماية الطلاء عالي الجودة.",
-      image: "pff.png",
-    },
-    {
-      slug: "tint",
-      icon: Sun,
-      title: "تظليل النوافذ",
-      description:
-        "صُممت حلول تظليل النوافذ المتميزة لدينا لعزل الحرارة بشكل مثالي، وحماية من الأشعة فوق البنفسجية، وتعزيز الخصوصية.",
-      image: "tzlel.png",
-    },
-    {
-      slug: "nano-exterior",
-      icon: Sparkles,
-      title: "النانو سيراميك خارجي",
-      description:
-        "عزز لمعان سيارتك ومتانتها على المدى الطويل مع طلاء النانو سيراميك المتطور لدينا. يقاوم الماء والأوساخ والملوثات.",
-      image: "/tlme3.png",
-    },
-    {
-      slug: "nano-interior",
-      icon: Sparkles,
-      title: "النانو سيراميك داخلي",
-      description:
-        "حافظ على مظهر سيارتك الداخلي منتعشاً مع معالجاتنا المتخصصة للأسطح القماشية والجلدية.",
-      image: "/nano.png",
-    },
-    {
-      slug: "polishing",
-      icon: Zap,
-      title: "تلميع داخلي وخارجي",
-      description:
-        "خدمة تلميع شاملة للداخل والخارج لإعطاء سيارتك لمعاناً استثنائياً ومظهراً جديداً يدوم طويلاً.",
-      image: "/tlme33.png",
-    },
-    {
-      slug: "premium",
-      icon: Car,
-      title: "خدمات مميزة لسيارتك",
-      description:
-        "استمتع بأقصى درجات الدلال لسيارتك مع خدمات العناية الفائقة من <span class='text-[#e9cb1d]'>اكس تريم نانو</span>. ينظف خبراؤنا ويلمعون ويحمون كل جزء من سيارتك.",
-      image:
-        "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    },
-  ];
+  useEffect(() => {
+    async function fetchServices() {
+      try {
+        const res = await fetch("/api/services");
+        if (res.ok) {
+          const data = await res.json();
+          setServices(data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch services:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchServices();
+  }, []);
 
   const scrollLeft = () => {
     scrollRef.current?.scrollBy({ left: -400, behavior: "smooth" });
@@ -91,6 +67,34 @@ export default function Services() {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
+
+  const getIcon = (slug) => {
+    return iconMap[slug] || Car;
+  };
+
+  const getImageUrl = (service) => {
+    if (service.imageFileId) {
+      return `/api/images/${service.imageFileId}`;
+    }
+    return service.image || "/hero.png";
+  };
+
+  if (loading) {
+    return (
+      <section id="services" className="py-20 bg-white" dir="rtl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-[#e9cb1d] mb-6">
+              خدماتنا المتميزة
+            </h2>
+            <p className="text-xl text-black max-w-3xl mx-auto leading-relaxed">
+              جاري التحميل...
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <motion.section
@@ -140,52 +144,54 @@ export default function Services() {
             className="flex gap-8 overflow-x-auto services-scroll pb-4"
             style={{ scrollSnapType: "x mandatory" }}
           >
-            {services.map((service, index) => (
-              <motion.div
-                key={index}
-                className="group relative bg-[#7F3F97] rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 flex-shrink-0 w-80"
-                style={{ scrollSnapAlign: "start" }}
-                variants={itemVariants}
-                whileHover={{
-                  scale: 1.03,
-                  boxShadow: "0 10px 15px rgba(0,0,0,0.2)",
-                }}
-              >
-                <div className="relative h-64 overflow-hidden">
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
+            {services.map((service, index) => {
+              const Icon = getIcon(service.slug);
+              return (
+                <motion.div
+                  key={service._id || index}
+                  className="group relative bg-[#7F3F97] rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 flex-shrink-0 w-80"
+                  style={{ scrollSnapAlign: "start" }}
+                  variants={itemVariants}
+                  whileHover={{
+                    scale: 1.03,
+                    boxShadow: "0 10px 15px rgba(0,0,0,0.2)",
+                  }}
+                >
+                  <div className="relative h-64 overflow-hidden">
+                    <img
+                      src={getImageUrl(service)}
+                      alt={service.titleAr || service.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
 
-                  <div className="absolute inset-0 bg-[#7F3F97] opacity-20"></div>
+                    <div className="absolute inset-0 bg-[#7F3F97] opacity-20"></div>
 
-                  <div className="absolute top-6 right-6 w-12 h-12 bg-[#e9cb1d] rounded-2xl flex items-center justify-center">
-                    <service.icon className="w-6 h-6 text-black" />
+                    <div className="absolute top-6 right-6 w-12 h-12 bg-[#e9cb1d] rounded-2xl flex items-center justify-center">
+                      <Icon className="w-6 h-6 text-black" />
+                    </div>
                   </div>
-                </div>
 
-                <div className="p-8 text-white text-right">
-                  <h3 className="text-2xl font-bold text-[#e9cb1d] mb-4">
-                    {service.title}
-                  </h3>
+                  <div className="p-8 text-white text-right">
+                    <h3 className="text-2xl font-bold text-[#e9cb1d] mb-4">
+                      {service.titleAr || service.title}
+                    </h3>
 
-                  <p
-                    className="text-white leading-relaxed mb-6"
-                    dangerouslySetInnerHTML={{ __html: service.description }}
-                  />
+                    <p
+                      className="text-white leading-relaxed mb-6"
+                      dangerouslySetInnerHTML={{ __html: service.descriptionAr || service.description }}
+                    />
 
-                  {/* هنا الرابط الجديد لكل صفحة خدمة */}
-                  <Link
-                    href={`/services/${service.slug}`}
-                    className="flex items-center gap-2 text-[#e9cb1d] font-semibold hover:opacity-80 transition-colors group justify-end"
-                  >
-                    <ArrowLeft className="w-4 h-4 group-hover:translate-x-1 transition-transform rotate-180" />
-                    تفاصيل الخدمة
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
+                    <Link
+                      href={`/services/${service.slug}`}
+                      className="flex items-center gap-2 text-[#e9cb1d] font-semibold hover:opacity-80 transition-colors group justify-end"
+                    >
+                      <ArrowLeft className="w-4 h-4 group-hover:translate-x-1 transition-transform rotate-180" />
+                      تفاصيل الخدمة
+                    </Link>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </div>

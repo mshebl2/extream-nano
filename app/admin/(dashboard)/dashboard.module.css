@@ -1,0 +1,55 @@
+.layout {
+    display: flex;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    position: relative;
+    direction: rtl;
+}
+
+.layout::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    right: 280px;
+    left: 0;
+    height: 240px;
+    background: linear-gradient(135deg, rgba(127, 63, 151, 0.05) 0%, rgba(233, 203, 29, 0.03) 100%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.main {
+    flex: 1;
+    margin-right: 280px;
+    padding: 2.5rem;
+    overflow-y: auto;
+    position: relative;
+    z-index: 1;
+    animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 100vh;
+    padding-top: 2.5rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 968px) {
+    .main {
+        margin-right: 0;
+        padding: 1.5rem;
+        padding-top: 5rem;
+    }
+
+    .layout::before {
+        right: 0;
+    }
+}

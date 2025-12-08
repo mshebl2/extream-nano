@@ -2,8 +2,13 @@
 
 import { Shield, Clock, Award, CheckCircle } from "lucide-react";
 import { motion } from "framer-motion"; // Import motion
+import { useSiteImages } from "@/lib/useSiteImages";
 
 export default function Warranty() {
+  const { getImage } = useSiteImages({
+    "warranty.image": "",
+  });
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -19,6 +24,15 @@ export default function Warranty() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
 
+  const warrantyBackground = getImage("warranty.image");
+  const sectionStyle = warrantyBackground
+    ? {
+        backgroundImage: `url(${warrantyBackground})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }
+    : undefined;
+
   return (
     <motion.section
       className="py-20 bg-gray-900 text-white"
@@ -27,6 +41,7 @@ export default function Warranty() {
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
       variants={containerVariants}
+      style={sectionStyle}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
