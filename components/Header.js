@@ -8,8 +8,17 @@ import Link from "next/link";
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // روابط الصفحات — بالترتيب الذي تريده للموبايل
-  const links = [
+  // 🔥 ترتيب الديسكتوب الأصلي زي ما كان
+  const desktopLinks = [
+    { href: "/contact", label: "اتصل بنا" },
+    { href: "/blog", label: "المدونة" },
+    { href: "/services", label: "خدماتنا" },
+    { href: "/about", label: "من نحن" },
+    { href: "/#home", label: "الرئيسية" },
+  ];
+
+  // 🔥 ترتيب الموبايل الجديد اللي انت طلبته:
+  const mobileLinks = [
     { href: "/#home", label: "الرئيسية" },
     { href: "/about", label: "من نحن" },
     { href: "/services", label: "خدماتنا" },
@@ -26,14 +35,15 @@ export default function Header() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
+
           {/* Logo */}
           <div className="flex items-center">
             <img src="/logo.jpg" alt="XTREME NANO Logo" className="h-12 w-auto" />
           </div>
 
-          {/* Desktop Navigation (يبقى كما هو) */}
+          {/* ================= DESKTOP MENU ================= */}
           <nav className="hidden md:flex items-center gap-8">
-            {links.map((link) => (
+            {desktopLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -52,7 +62,7 @@ export default function Header() {
             </a>
           </nav>
 
-          {/* Mobile menu button */}
+          {/* ================ MOBILE MENU BUTTON ================ */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden p-2 rounded-md text-black hover:text-[#7F3F97]"
@@ -61,7 +71,7 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* ================ MOBILE MENU ================ */}
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
@@ -72,8 +82,9 @@ export default function Header() {
               className="md:hidden py-4 border-t border-gray-200"
             >
               <div className="flex flex-col space-y-4 text-right">
-                {/* روابط القائمة أولاً */}
-                {links.map((link) => (
+
+                {/* روابط الموبايل بالترتيب الجديد */}
+                {mobileLinks.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
@@ -84,7 +95,7 @@ export default function Header() {
                   </Link>
                 ))}
 
-                {/* ثم زر الاتصال في الأسفل */}
+                {/* زر الاتصال في النهاية */}
                 <a
                   href="tel:570044578"
                   className="bg-[#7F3F97] text-white px-6 py-2 rounded-full font-semibold text-center flex items-center justify-center gap-2"
