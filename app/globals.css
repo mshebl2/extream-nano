@@ -49,3 +49,48 @@ article a:hover {
     color: #93c5fd;
   }
 }
+
+/* ========================================================= */
+/* ===== 🟢 أزرار واتساب + اتصال بدون صور – ثابتة على الشاشة ===== */
+/* ========================================================= */
+.floating-buttons {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 9999;
+}
+
+.floating-buttons a {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #25d366; /* أخضر واتساب */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.16);
+  transition: transform 0.25s ease;
+}
+
+.floating-buttons a:hover {
+  transform: scale(1.1);
+}
+
+/* زر الاتصال */
+.call-btn {
+  color: #0ea5e9; /* أزرق (sky-500) */
+}
+
+/* الوضع الداكن للأزرار */
+@media (prefers-color-scheme: dark) {
+  .floating-buttons a {
+    background: #1e1e1e;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+  }
+}
