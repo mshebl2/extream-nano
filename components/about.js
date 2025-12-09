@@ -51,7 +51,7 @@ export default function About() {
           </h2>
           <p className="text-xl text-black max-w-3xl mx-auto leading-relaxed">
             في اكستريم نانو تأتي الجودة في المقام الأول ونلتزم دائماً بتقديم
-            أعلى المعايير في خدمات العناية بسيارتك
+            أعلى المعايير في خدمات العناية بسيارتك في الرياض 
           </p>
         </motion.div>
 
@@ -63,13 +63,13 @@ export default function About() {
               <span className="text-[#e9cb1d]">XTREME NANO</span>
             </h3>
             <p className="text-lg text-black mb-6 leading-relaxed text-right">
-              نوفر لعملائنا تجربة فاخرة في عالم العناية بالسيارات، خبرة وجودة
+              نوفر لعملائنا تجربة فاخرة في عالم العناية بالسيارات بالرياض، خبرة وجودة
               وتكنولوجيا متطورة في مكان واحد، نهتم بأدق التفاصيل لنمنح سيارتك
               الحماية المثالية والمظهر الأنيق.
             </p>
             <p className="text-lg text-black leading-relaxed text-right">
               نخدم الأفراد الباحثين عن التميز ونفخر بأن نكون خيارك الأول دائماً.
-              بفضل خبرتنا والمتخصصين المدربين على أعلى مستوى.
+              بفضل خبرتنا والمتخصصين المدربين على أعلى مستوى بالرياض والمملكة العربية السعودية.
             </p>
           </motion.div>
 
@@ -101,7 +101,7 @@ export default function About() {
               هدفنا
             </h4>
             <p className="text-white leading-relaxed text-right">
-              الوصول إلى المركز الأول في المملكة العربية السعودية في مجال
+              الوصول إلى المركز الأول في المملكة العربية السعودية والرياض في مجال
               العناية بالسيارات
             </p>
           </motion.div>
