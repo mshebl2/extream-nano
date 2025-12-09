@@ -30,33 +30,32 @@ body {
 
 /* ===== 🎨 تنسيق الروابط داخل المقال فقط ===== */
 article a {
-  color: #2563eb; /* أزرق Tailwind (blue-600) */
+  color: #2563eb;
   text-decoration: underline;
   transition: color 0.3s ease;
 }
 
 article a:hover {
-  color: #1d4ed8; /* أزرق أغمق (blue-700) */
+  color: #1d4ed8;
 }
 
-/* وضع الداكن */
 @media (prefers-color-scheme: dark) {
   article a {
-    color: #60a5fa; /* أزرق فاتح يناسب الوضع الداكن */
+    color: #60a5fa;
   }
-
   article a:hover {
     color: #93c5fd;
   }
 }
 
-/* ========================================================= */
-/* ===== 🟢 أزرار واتساب + اتصال بدون صور – ثابتة على الشاشة ===== */
-/* ========================================================= */
+/* ======================================================= */
+/* ===== 🟢 أزرار واتساب + اتصال على اليمين ===== */
+/* ======================================================= */
+
 .floating-buttons {
   position: fixed;
   bottom: 20px;
-  left: 20px;
+  right: 20px; /* على اليمين */
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -68,11 +67,9 @@ article a:hover {
   height: 60px;
   border-radius: 50%;
   background: #ffffff;
-  color: #25d366; /* أخضر واتساب */
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
   text-decoration: none;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.16);
   transition: transform 0.25s ease;
@@ -82,12 +79,20 @@ article a:hover {
   transform: scale(1.1);
 }
 
-/* زر الاتصال */
-.call-btn {
-  color: #0ea5e9; /* أزرق (sky-500) */
+/* أيقونة الواتساب */
+.whatsapp-icon svg {
+  width: 32px;
+  height: 32px;
+  fill: #25d366;
 }
 
-/* الوضع الداكن للأزرار */
+/* زر الاتصال */
+.call-btn {
+  font-size: 32px;
+  color: #0ea5e9;
+}
+
+/* الوضع الداكن */
 @media (prefers-color-scheme: dark) {
   .floating-buttons a {
     background: #1e1e1e;
