@@ -21,7 +21,7 @@ export async function GET(
         return new Response(uint8Array as unknown as BodyInit, {
             headers: {
                 'Content-Type': file.contentType,
-                'Cache-Control': 'public, max-age=14400, stale-while-revalidate=3600',
+                'Cache-Control': 'public, max-age=3600, stale-while-revalidate=300, must-revalidate',
             },
         });
     } catch (error) {

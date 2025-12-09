@@ -155,8 +155,10 @@ export default function SiteImagesPage() {
                     setPreviewUrl(null);
                 }
                 
-                // Refresh images to ensure we have the latest from DB (with cache busting)
+                // Refresh images to ensure we have the latest from DB
                 await fetchImages();
+                
+                alert('تم تحديث الصورة بنجاح! قد تحتاج إلى تحديث الصفحة لرؤية التغييرات.');
             } else {
                 const errorData = await res.json().catch(() => ({ error: 'Unknown error' }));
                 throw new Error(errorData.error || 'فشل في حفظ الصورة');

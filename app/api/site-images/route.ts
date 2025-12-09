@@ -17,7 +17,7 @@ const getCachedSiteImages = unstable_cache(
         }));
     },
     ['site-images-list'],
-    { revalidate: 14400, tags: ['site-images'] } // 4 hours
+    { revalidate: 60, tags: ['site-images'] } // 1 minute for faster updates
 );
 
 export async function GET() {
@@ -25,7 +25,7 @@ export async function GET() {
         const images = await getCachedSiteImages();
         return NextResponse.json(images, {
             headers: {
-                'Cache-Control': 'public, s-maxage=14400, stale-while-revalidate=3600',
+                'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=30, must-revalidate',
             },
         });
     } catch (error) {
@@ -80,6 +80,9 @@ export async function PUT(req: NextRequest) {
 
         // Invalidate cache
         revalidateTag('site-images', 'max');
+        // Also revalidate the home page and other pages that use site images
+        revalidateTag('services', 'max');
+        revalidateTag('blogs', 'max');
 
         return NextResponse.json({
             ...image,
