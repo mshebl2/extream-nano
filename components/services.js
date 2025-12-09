@@ -182,7 +182,7 @@ export default function Services() {
                     />
 
                     <Link
-                      href={`/services/${service.slug}`}
+                      href={`/services/${encodeURIComponent(service.slug)}`}
                       className="flex items-center gap-2 text-[#e9cb1d] font-semibold hover:opacity-80 transition-colors group justify-end"
                     >
                       <ArrowLeft className="w-4 h-4 group-hover:translate-x-1 transition-transform rotate-180" />

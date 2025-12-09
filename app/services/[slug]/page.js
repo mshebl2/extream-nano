@@ -13,7 +13,22 @@ export const revalidate = 14400; // 4 hours
 const getServiceBySlug = unstable_cache(
   async (slug) => {
     await connectDB();
-    const service = await Service.findOne({ slug }).lean();
+    // Decode the slug in case it's URL encoded
+    let decodedSlug;
+    try {
+      decodedSlug = decodeURIComponent(slug);
+    } catch (e) {
+      decodedSlug = slug; // If decoding fails, use original
+    }
+    
+    // Try to find service with decoded slug first
+    let service = await Service.findOne({ slug: decodedSlug }).lean();
+    
+    // If not found, try with the original slug (in case it's stored encoded)
+    if (!service) {
+      service = await Service.findOne({ slug: slug }).lean();
+    }
+    
     if (!service) return null;
 
     return {
@@ -28,7 +43,8 @@ const getServiceBySlug = unstable_cache(
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const service = await getServiceBySlug(slug);
+  const decodedSlug = decodeURIComponent(slug);
+  const service = await getServiceBySlug(decodedSlug);
 
   if (!service) {
     return { title: 'الخدمة غير موجودة' };
@@ -42,7 +58,8 @@ export async function generateMetadata({ params }) {
 
 export default async function ServicePage({ params }) {
   const { slug } = await params;
-  const service = await getServiceBySlug(slug);
+  const decodedSlug = decodeURIComponent(slug);
+  const service = await getServiceBySlug(decodedSlug);
 
   if (!service) {
     notFound();

@@ -10,7 +10,22 @@ export const dynamic = 'force-dynamic';
 async function getBlogBySlug(slug: string) {
   try {
     await connectDB();
-    const blog = await Blog.findOne({ slug }).lean();
+    // Decode the slug in case it's URL encoded
+    let decodedSlug;
+    try {
+      decodedSlug = decodeURIComponent(slug);
+    } catch (e) {
+      decodedSlug = slug; // If decoding fails, use original
+    }
+    
+    // Try to find blog with decoded slug first
+    let blog = await Blog.findOne({ slug: decodedSlug }).lean();
+    
+    // If not found, try with the original slug (in case it's stored encoded)
+    if (!blog) {
+      blog = await Blog.findOne({ slug: slug }).lean();
+    }
+    
     if (!blog) return null;
 
     return {

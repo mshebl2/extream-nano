@@ -48,7 +48,7 @@ export default function ServicesPage() {
       return (
         <Link
           key={service.slug}
-          href={`/services/${service.slug}`}
+          href={`/services/${encodeURIComponent(service.slug)}`}
           className="block bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 text-center"
         >
           <img
