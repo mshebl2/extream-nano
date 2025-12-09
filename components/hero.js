@@ -74,7 +74,7 @@ export default function Hero() {
               className="text-xl lg:text-2xl mb-8 text-black leading-relaxed"
               variants={itemVariants}
             >
-              نوفر لعملائنا تجربة فاخرة في عالم العناية بالسيارات
+              نوفر لعملائنا تجربة فاخرة في عالم العناية بالسيارات بالرياض
               <br />
               خبرة وجودة وتكنولوجيا متطورة في مكان واحد
             </motion.p>
