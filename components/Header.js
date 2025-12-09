@@ -8,18 +8,17 @@ import Link from "next/link";
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // روابط الصفحات الجديدة
+  // روابط الصفحات — بالترتيب الذي تريده للموبايل
   const links = [
-    { href: "/contact", label: "اتصل بنا" },
-    { href: "/blog", label: "المدونة" },
-    { href: "/services", label: "خدماتنا" },
-    { href: "/about", label: "من نحن" },
     { href: "/#home", label: "الرئيسية" },
+    { href: "/about", label: "من نحن" },
+    { href: "/services", label: "خدماتنا" },
+    { href: "/blog", label: "المدونة" },
+    { href: "/contact", label: "اتصل بنا" },
   ];
 
   return (
-    <motion.Header
-      id="home"
+    <motion.header
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -32,7 +31,7 @@ export default function Header() {
             <img src="/logo.jpg" alt="XTREME NANO Logo" className="h-12 w-auto" />
           </div>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation (يبقى كما هو) */}
           <nav className="hidden md:flex items-center gap-8">
             {links.map((link) => (
               <Link
@@ -73,15 +72,7 @@ export default function Header() {
               className="md:hidden py-4 border-t border-gray-200"
             >
               <div className="flex flex-col space-y-4 text-right">
-                <a
-                  href="tel:570044578"
-                  className="bg-[#7F3F97] text-white px-6 py-2 rounded-full font-semibold text-center flex items-center justify-center gap-2"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <Phone className="w-4 h-4" />
-                  +966 570044578
-                </a>
-
+                {/* روابط القائمة أولاً */}
                 {links.map((link) => (
                   <Link
                     key={link.href}
@@ -92,11 +83,21 @@ export default function Header() {
                     {link.label}
                   </Link>
                 ))}
+
+                {/* ثم زر الاتصال في الأسفل */}
+                <a
+                  href="tel:570044578"
+                  className="bg-[#7F3F97] text-white px-6 py-2 rounded-full font-semibold text-center flex items-center justify-center gap-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Phone className="w-4 h-4" />
+                  +966 570044578
+                </a>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
-    </motion.Header>
+    </motion.header>
   );
 }
