@@ -64,6 +64,22 @@ export default function RootLayout({ children }) {
 
         {children}
 
+        {/* ====== 🟢 أزرار واتساب + اتصال ====== */}
+        <div className="floating-buttons">
+          <a
+            href="https://wa.me/966570044578"
+            target="_blank"
+            className="whatsapp-btn"
+            aria-label="WhatsApp"
+          >
+            ☎
+          </a>
+
+          <a href="tel:966570044578" className="call-btn" aria-label="Call">
+            📞
+          </a>
+        </div>
+
         {/* Google Tag Manager */}
         <Script id="google-tag-manager" strategy="afterInteractive">
           {`
@@ -104,7 +120,11 @@ export default function RootLayout({ children }) {
         </Script>
 
         {/* JSON-LD Schema */}
-        <Script id="structured-data" type="application/ld+json" strategy="afterInteractive">
+        <Script
+          id="structured-data"
+          type="application/ld+json"
+          strategy="afterInteractive"
+        >
           {`
             {
               "@context": "https://schema.org",
