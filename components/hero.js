@@ -69,18 +69,33 @@ export default function Hero() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Right Content */}
-          <div className="text-center lg:text-right order-1 lg:order-2 flex flex-col-reverse gap-8">
-            {/* Free Service أولاً */}
-            <motion.div
-              className="flex items-center justify-center lg:justify-start gap-3 text-black"
+          <div className="text-center lg:text-right order-1 lg:order-2">
+            <motion.p
+              className="text-xl lg:text-2xl mb-8 text-black leading-relaxed"
               variants={itemVariants}
             >
-              <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                <Check className="w-5 h-5 text-white" />
+              نوفر لعملائنا تجربة فاخرة في عالم العناية بالسيارات
+              <br />
+              خبرة وجودة وتكنولوجيا متطورة في مكان واحد
+            </motion.p>
+
+            {/* Features */}
+            <motion.div
+              className="flex flex-wrap justify-center lg:justify-start gap-4 mb-10"
+              variants={itemVariants}
+            >
+              <div className="flex items-center gap-2 bg-[#7F3F97] text-white rounded-full px-4 py-2 shadow-lg">
+                <Star className="w-4 h-4 text-[#e9cb1d]" />
+                <span className="text-sm font-semibold">جودة عالمية</span>
               </div>
-              <span className="text-lg font-semibold">
-                راحتك تهمنا … سطحتك مجانية استلام وتسليم
-              </span>
+              <div className="flex items-center gap-2 bg-[#7F3F97] text-white rounded-full px-4 py-2 shadow-lg">
+                <Shield className="w-4 h-4 text-[#e9cb1d]" />
+                <span className="text-sm font-semibold">ضمان 10 سنوات</span>
+              </div>
+              <div className="flex items-center gap-2 bg-[#7F3F97] text-white rounded-full px-4 py-2 shadow-lg">
+                <Award className="w-4 h-4 text-[#e9cb1d]" />
+                <span className="text-sm font-semibold">خبراء معتمدون</span>
+              </div>
             </motion.div>
 
             {/* Buttons */}
@@ -137,34 +152,18 @@ export default function Hero() {
               </div>
             </motion.div>
 
-            {/* Features */}
+            {/* Free Service */}
             <motion.div
-              className="flex flex-wrap justify-center lg:justify-start gap-4 mb-10"
+              className="flex items-center justify-center lg:justify-start gap-3 text-black"
               variants={itemVariants}
             >
-              <div className="flex items-center gap-2 bg-[#7F3F97] text-white rounded-full px-4 py-2 shadow-lg">
-                <Star className="w-4 h-4 text-[#e9cb1d]" />
-                <span className="text-sm font-semibold">جودة عالمية</span>
+              <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                <Check className="w-5 h-5 text-white" />
               </div>
-              <div className="flex items-center gap-2 bg-[#7F3F97] text-white rounded-full px-4 py-2 shadow-lg">
-                <Shield className="w-4 h-4 text-[#e9cb1d]" />
-                <span className="text-sm font-semibold">ضمان 10 سنوات</span>
-              </div>
-              <div className="flex items-center gap-2 bg-[#7F3F97] text-white rounded-full px-4 py-2 shadow-lg">
-                <Award className="w-4 h-4 text-[#e9cb1d]" />
-                <span className="text-sm font-semibold">خبراء معتمدون</span>
-              </div>
+              <span className="text-lg font-semibold">
+                راحتك تهمنا … سطحتك مجانية استلام وتسليم
+              </span>
             </motion.div>
-
-            {/* Text التعريفي */}
-            <motion.p
-              className="text-xl lg:text-2xl mb-8 text-black leading-relaxed"
-              variants={itemVariants}
-            >
-              نوفر لعملائنا تجربة فاخرة في عالم العناية بالسيارات
-              <br />
-              خبرة وجودة وتكنولوجيا متطورة في مكان واحد
-            </motion.p>
           </div>
         </div>
       </div>
