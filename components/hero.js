@@ -68,8 +68,9 @@ export default function Hero() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Right Content */}
-          <div className="text-center lg:text-right order-1 lg:order-2">
+          {/* Right Content (النص) */}
+          <div className="text-center lg:text-right 
+                          order-2 lg:order-1">
             <motion.p
               className="text-xl lg:text-2xl mb-8 text-black leading-relaxed"
               variants={itemVariants}
@@ -115,7 +116,9 @@ export default function Hero() {
 
               <div className="relative">
                 <motion.button
-                  onClick={() => setShowBookingOptions(!showBookingOptions)}
+                  onClick={() =>
+                    setShowBookingOptions(!showBookingOptions)
+                  }
                   className="border-2 border-[#7F3F97] text-white px-8 py-4 rounded-full font-bold text-lg bg-[#7F3F97] hover:opacity-90 transition-all duration-300 w-full shadow-lg"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -164,6 +167,15 @@ export default function Hero() {
                 راحتك تهمنا … سطحتك مجانية استلام وتسليم
               </span>
             </motion.div>
+          </div>
+
+          {/* Left Content (صورة أو عنصر آخر) */}
+          <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
+            <img
+              src={heroBackground}
+              alt="XTREME NANO Background"
+              className="w-full max-w-md object-contain"
+            />
           </div>
         </div>
       </div>
