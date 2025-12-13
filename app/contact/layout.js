@@ -4,8 +4,26 @@ import Header from "@/components/Header";
 import { Phone, Mail, MapPin, Instagram } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function ContactLayout({ children }) {
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+    async function fetchServices() {
+      try {
+        const res = await fetch("/api/services");
+        if (res.ok) {
+          const data = await res.json();
+          setServices(Array.isArray(data) ? data.slice(0, 6) : []);
+        }
+      } catch (error) {
+        console.error("Failed to fetch services for footer:", error);
+      }
+    }
+    fetchServices();
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
@@ -105,36 +123,26 @@ export default function ContactLayout({ children }) {
             <motion.div variants={itemVariants}>
               <h3 className="text-xl font-bold mb-6 text-[#e9cb1d]">خدماتنا</h3>
               <ul className="space-y-3 text-gray-300">
-                <li>
-                  <Link href="/services/ppf" className="hover:text-[#e9cb1d] transition-colors">
-                    فيلم حماية الطلاء
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/services/tint" className="hover:text-[#e9cb1d] transition-colors">
-                    تظليل النوافذ
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/services/nano-exterior" className="hover:text-[#e9cb1d] transition-colors">
-                    النانو سيراميك خارجي
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/services/nano-interior" className="hover:text-[#e9cb1d] transition-colors">
-                    النانو سيراميك داخلي
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/services/polishing" className="hover:text-[#e9cb1d] transition-colors">
-                    تلميع داخلي وخارجي
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/services/premium" className="hover:text-[#e9cb1d] transition-colors">
-                    خدمات مميزة للسيارة
-                  </Link>
-                </li>
+                {services.length > 0 ? (
+                  services.map((service) => (
+                    <li key={service._id}>
+                      <Link
+                        href={`/services/${encodeURIComponent(service.slug)}`}
+                        className="hover:text-[#e9cb1d] transition-colors"
+                      >
+                        {service.titleAr}
+                      </Link>
+                    </li>
+                  ))
+                ) : (
+                  <>
+                    <li>
+                      <Link href="/services" className="hover:text-[#e9cb1d] transition-colors">
+                        جميع الخدمات
+                      </Link>
+                    </li>
+                  </>
+                )}
               </ul>
             </motion.div>
 
