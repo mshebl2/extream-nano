@@ -9,6 +9,7 @@ interface Blog {
     titleAr: string;
     slug: string;
     descriptionAr: string;
+    contentAr?: string;
     image?: string;
     featured?: boolean;
 }
@@ -21,6 +22,7 @@ export default function BlogsPage() {
     const [formData, setFormData] = useState({
         titleAr: '',
         descriptionAr: '',
+        contentAr: '',
         slug: '',
         image: '',
         imageFileId: '',
@@ -53,6 +55,7 @@ export default function BlogsPage() {
         setFormData({
             titleAr: '',
             descriptionAr: '',
+            contentAr: '',
             slug: '',
             image: '',
             imageFileId: '',
@@ -64,12 +67,13 @@ export default function BlogsPage() {
 
     const handleEdit = (blog: Blog) => {
         setEditingBlog(blog);
-        const imageUrl = (blog as any).imageFileId 
-            ? `/api/images/${(blog as any).imageFileId}` 
+        const imageUrl = (blog as any).imageFileId
+            ? `/api/images/${(blog as any).imageFileId}`
             : blog.image || '';
         setFormData({
             titleAr: blog.titleAr,
             descriptionAr: blog.descriptionAr,
+            contentAr: blog.contentAr || '',
             slug: blog.slug,
             image: blog.image || '',
             imageFileId: (blog as any).imageFileId || '',
@@ -163,7 +167,7 @@ export default function BlogsPage() {
             if (res.ok) {
                 const data = await res.json();
                 console.log('Upload response:', data);
-                
+
                 if (!data.fileId) {
                     throw new Error('فشل في الحصول على معرف الملف');
                 }
@@ -292,12 +296,24 @@ export default function BlogsPage() {
                             </div>
 
                             <div className={styles.formGroup}>
-                                <label>الوصف</label>
+                                <label>الوصف المختصر</label>
                                 <textarea
                                     value={formData.descriptionAr}
                                     onChange={(e) => setFormData({ ...formData, descriptionAr: e.target.value })}
                                     rows={3}
                                     required
+                                    placeholder="وصف مختصر للمقال يظهر في قائمة المدونة"
+                                />
+                            </div>
+
+                            <div className={styles.formGroup}>
+                                <label>محتوى المقال (HTML مدعوم)</label>
+                                <textarea
+                                    value={formData.contentAr}
+                                    onChange={(e) => setFormData({ ...formData, contentAr: e.target.value })}
+                                    rows={10}
+                                    placeholder="اكتب محتوى المقال هنا... يمكنك استخدام HTML مثل <h2>, <p>, <ul>, <li>, <strong> وغيرها"
+                                    style={{ fontFamily: 'monospace', fontSize: '0.9rem' }}
                                 />
                             </div>
 
@@ -312,9 +328,9 @@ export default function BlogsPage() {
                                 {uploadingImage && <p style={{ color: '#7F3F97', fontSize: '0.875rem' }}>جاري رفع الصورة...</p>}
                                 {imagePreview && (
                                     <div style={{ marginTop: '0.5rem' }}>
-                                        <img 
-                                            src={imagePreview} 
-                                            alt="Preview" 
+                                        <img
+                                            src={imagePreview}
+                                            alt="Preview"
                                             style={{ maxWidth: '200px', maxHeight: '200px', borderRadius: '8px', border: '2px solid #e2e8f0' }}
                                         />
                                     </div>
