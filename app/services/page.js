@@ -3,6 +3,7 @@ import Link from "next/link";
 import Head from "next/head";
 import Header from "@/components/Header"; // تأكد من وجود الملف
 import { useSiteImages } from "@/lib/useSiteImages";
+import { getServices } from "@/lib/services"; // دالة ترجع البيانات مباشرة
 
 export default function ServicesPage({ services }) {
   const { getImage } = useSiteImages({
@@ -97,11 +98,11 @@ export default function ServicesPage({ services }) {
   );
 }
 
-// Server-Side Rendering
+// Server-Side Rendering باستخدام دالة مباشرة
 export async function getServerSideProps() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/services`);
-    const services = await res.ok ? await res.json() : [];
+    // استدعاء البيانات مباشرة بدون fetch خارجي
+    const services = await getServices(); // دالة ترجع مصفوفة الخدمات
 
     return { props: { services } };
   } catch (error) {
