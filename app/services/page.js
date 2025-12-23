@@ -1,78 +1,27 @@
-"use client";
-
-import { useEffect, useMemo, useState } from "react";
+// pages/services/index.js
 import Link from "next/link";
-import Header from "@/components/Header"; // <- تأكد من وجود هذا الملف
+import Head from "next/head";
+import Header from "@/components/Header"; // تأكد من وجود الملف
 import { useSiteImages } from "@/lib/useSiteImages";
 
-export default function ServicesPage() {
-  const [services, setServices] = useState([]);
-  const [loading, setLoading] = useState(true);
+export default function ServicesPage({ services }) {
   const { getImage } = useSiteImages({
     "services.background": "/hero.svg",
   });
-
-  useEffect(() => {
-    let active = true;
-
-    async function fetchServices() {
-      try {
-        const res = await fetch("/api/services");
-        if (!res.ok) return;
-
-        const data = await res.json();
-        if (active && Array.isArray(data)) {
-          setServices(data);
-        }
-      } catch (error) {
-        console.error("Failed to fetch services:", error);
-      } finally {
-        if (active) {
-          setLoading(false);
-        }
-      }
-    }
-
-    fetchServices();
-    return () => {
-      active = false;
-    };
-  }, []);
-
-  const serviceCards = useMemo(() => {
-    return services.map((service) => {
-      const imageUrl = service.imageFileId
-        ? `/api/images/${service.imageFileId}`
-        : service.image || "/hero.png";
-
-      return (
-        <Link
-          key={service.slug}
-          href={`/services/${encodeURIComponent(service.slug)}`}
-          className="block bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 text-center"
-        >
-          <img
-            src={imageUrl}
-            alt={service.titleAr}
-            className="w-full h-48 object-cover"
-          />
-          <div className="p-4">
-            <h2 className="text-xl font-bold text-[#7F3F97] mb-2">
-              {service.titleAr}
-            </h2>
-            <p className="text-gray-700">
-              {service.descriptionAr}
-            </p>
-          </div>
-        </Link>
-      );
-    });
-  }, [services]);
 
   const backgroundImage = getImage("services.background", "/hero.svg");
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Meta Tags */}
+      <Head>
+        <title>خدمات العناية بالسيارات بالرياض - اكستريم نانو</title>
+        <meta
+          name="description"
+          content="نقدم أفضل خدمات العناية بالسيارات في الرياض باستخدام مواد وتقنيات عالية الجودة."
+        />
+      </Head>
+
       {/* Header */}
       <Header className="text-center py-12 bg-white shadow-md">
         <div
@@ -90,12 +39,36 @@ export default function ServicesPage() {
 
       {/* Services Grid */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {loading ? (
-          <div className="text-center text-gray-600">جاري تحميل الخدمات...</div>
-        ) : services.length === 0 ? (
+        {services.length === 0 ? (
           <div className="text-center text-gray-600">لا توجد خدمات متاحة حالياً</div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">{serviceCards}</div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.map((service) => {
+              const imageUrl = service.imageFileId
+                ? `/api/images/${service.imageFileId}`
+                : service.image || "/hero.png";
+
+              return (
+                <Link
+                  key={service.slug}
+                  href={`/services/${encodeURIComponent(service.slug)}`}
+                  className="block bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 text-center"
+                >
+                  <img
+                    src={imageUrl}
+                    alt={service.titleAr}
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="p-4">
+                    <h2 className="text-xl font-bold text-[#7F3F97] mb-2">
+                      {service.titleAr}
+                    </h2>
+                    <p className="text-gray-700">{service.descriptionAr}</p>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
         )}
       </section>
 
@@ -122,4 +95,17 @@ export default function ServicesPage() {
       </section>
     </div>
   );
+}
+
+// Server-Side Rendering
+export async function getServerSideProps() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/services`);
+    const services = await res.ok ? await res.json() : [];
+
+    return { props: { services } };
+  } catch (error) {
+    console.error("Failed to fetch services:", error);
+    return { props: { services: [] } };
+  }
 }
