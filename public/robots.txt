@@ -1,5 +1,3 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://xtreme-nano.com/sitemap.xml
 Sitemap: https://www.xtreme-nano.com/sitemap.xml
