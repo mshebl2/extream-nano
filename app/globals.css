@@ -43,9 +43,96 @@ article a:hover {
   article a {
     color: #60a5fa;
   }
+
   article a:hover {
     color: #93c5fd;
   }
+}
+
+/* ===== 🔗 تنسيق الروابط الداخلية ===== */
+.internal-link,
+.blog-content .internal-link,
+.blog-content a.internal-link,
+.prose .internal-link,
+.prose a.internal-link,
+article .internal-link {
+  color: #7F3F97 !important;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.internal-link:hover,
+.blog-content .internal-link:hover,
+.prose .internal-link:hover,
+article .internal-link:hover {
+  color: #e9cb1d !important;
+  text-decoration-style: solid;
+}
+
+/* ===== 📝 تنسيق محتوى المدونة ===== */
+.blog-content {
+  overflow: visible !important;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Override ALL elements inside blog-content including prose */
+.blog-content,
+.blog-content *,
+.blog-content p,
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content h4,
+.blog-content h5,
+.blog-content h6,
+.blog-content ul,
+.blog-content ol,
+.blog-content li,
+.blog-content span,
+.blog-content div,
+.blog-content strong,
+.blog-content em,
+.blog-content b,
+.blog-content i,
+.blog-content a:not(.internal-link),
+.prose *,
+.prose p,
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6,
+.prose ul,
+.prose ol,
+.prose li,
+.prose span,
+.prose div,
+.prose strong,
+.prose em,
+.prose b,
+.prose i {
+  overflow: visible !important;
+  max-width: 100% !important;
+  color: #000000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* ===== تنسيق قسم CTA في المدونة ===== */
+article section[class*="bg-"] p,
+article section[class*="bg-"] h2 {
+  color: inherit !important;
+}
+
+/* Force white text on purple CTA section in both light and dark modes */
+.blog-cta-section p {
+  color: #ffffff !important;
 }
 
 /* ======================================================= */
@@ -55,7 +142,8 @@ article a:hover {
 .floating-buttons {
   position: fixed;
   bottom: 20px;
-  right: 20px; /* على اليمين */
+  right: 20px;
+  /* على اليمين */
   display: flex;
   flex-direction: column;
   gap: 12px;

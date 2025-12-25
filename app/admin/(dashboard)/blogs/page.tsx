@@ -12,6 +12,11 @@ interface Blog {
     contentAr?: string;
     image?: string;
     featured?: boolean;
+    // SEO Fields
+    autoSEO?: boolean;
+    autoInternalLinks?: boolean;
+    metaTitle?: string;
+    metaDescription?: string;
 }
 
 export default function BlogsPage() {
@@ -27,6 +32,11 @@ export default function BlogsPage() {
         image: '',
         imageFileId: '',
         featured: false,
+        // SEO Fields
+        autoSEO: true,
+        autoInternalLinks: true,
+        metaTitle: '',
+        metaDescription: '',
     });
     const [saving, setSaving] = useState(false);
     const [uploadingImage, setUploadingImage] = useState(false);
@@ -60,6 +70,10 @@ export default function BlogsPage() {
             image: '',
             imageFileId: '',
             featured: false,
+            autoSEO: true,
+            autoInternalLinks: true,
+            metaTitle: '',
+            metaDescription: '',
         });
         setImagePreview('');
         setIsModalOpen(true);
@@ -78,6 +92,10 @@ export default function BlogsPage() {
             image: blog.image || '',
             imageFileId: (blog as any).imageFileId || '',
             featured: blog.featured || false,
+            autoSEO: blog.autoSEO !== false,
+            autoInternalLinks: blog.autoInternalLinks !== false,
+            metaTitle: blog.metaTitle || '',
+            metaDescription: blog.metaDescription || '',
         });
         setImagePreview(imageUrl);
         setIsModalOpen(true);
@@ -353,6 +371,54 @@ export default function BlogsPage() {
                                     />
                                     <span>مقال مميز</span>
                                 </label>
+                            </div>
+
+                            {/* SEO Settings Section */}
+                            <div className={styles.seoSection}>
+                                <h3 className={styles.seoTitle}>إعدادات SEO</h3>
+                                <div className={styles.seoToggles}>
+                                    <label className={styles.checkboxLabel}>
+                                        <input
+                                            type="checkbox"
+                                            checked={formData.autoSEO}
+                                            onChange={(e) => setFormData({ ...formData, autoSEO: e.target.checked })}
+                                        />
+                                        <span>توليد SEO تلقائي</span>
+                                    </label>
+                                    <label className={styles.checkboxLabel}>
+                                        <input
+                                            type="checkbox"
+                                            checked={formData.autoInternalLinks}
+                                            onChange={(e) => setFormData({ ...formData, autoInternalLinks: e.target.checked })}
+                                        />
+                                        <span>روابط داخلية تلقائية</span>
+                                    </label>
+                                </div>
+
+                                {!formData.autoSEO && (
+                                    <div className={styles.manualSeo}>
+                                        <div className={styles.formGroup}>
+                                            <label>عنوان Meta</label>
+                                            <input
+                                                type="text"
+                                                value={formData.metaTitle}
+                                                onChange={(e) => setFormData({ ...formData, metaTitle: e.target.value })}
+                                                placeholder="عنوان الصفحة لمحركات البحث (50-60 حرف)"
+                                                maxLength={60}
+                                            />
+                                        </div>
+                                        <div className={styles.formGroup}>
+                                            <label>وصف Meta</label>
+                                            <textarea
+                                                value={formData.metaDescription}
+                                                onChange={(e) => setFormData({ ...formData, metaDescription: e.target.value })}
+                                                rows={2}
+                                                placeholder="وصف الصفحة لمحركات البحث (150-160 حرف)"
+                                                maxLength={160}
+                                            />
+                                        </div>
+                                    </div>
+                                )}
                             </div>
 
                             <div className={styles.formActions}>

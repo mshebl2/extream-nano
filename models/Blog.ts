@@ -9,6 +9,13 @@ export interface IBlog extends Document {
     image: string;
     imageFileId?: string;
     featured?: boolean;
+    // SEO Fields
+    autoSEO: boolean;
+    autoInternalLinks: boolean;
+    metaTitle?: string;
+    metaDescription?: string;
+    metaKeywords?: string[];
+    processedContent?: string; // Content with internal links applied
     createdAt: Date;
     updatedAt: Date;
 }
@@ -22,6 +29,13 @@ const BlogSchema: Schema = new Schema({
     image: { type: String, required: false },
     imageFileId: { type: String, required: false },
     featured: { type: Boolean, default: false },
+    // SEO Fields
+    autoSEO: { type: Boolean, default: true },
+    autoInternalLinks: { type: Boolean, default: true },
+    metaTitle: { type: String, required: false },
+    metaDescription: { type: String, required: false },
+    metaKeywords: { type: [String], default: [] },
+    processedContent: { type: String, required: false },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
 });

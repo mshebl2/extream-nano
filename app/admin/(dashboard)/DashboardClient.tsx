@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Briefcase, ImageIcon, FileText, TrendingUp, Eye } from 'lucide-react';
+import { Briefcase, ImageIcon, FileText, TrendingUp, Settings, Link2 } from 'lucide-react';
 import styles from './overview.module.css';
 
 interface DashboardClientProps {
@@ -73,6 +73,20 @@ export default function DashboardClient({ stats }: DashboardClientProps) {
                         <div className={styles.actionContent}>
                             <span className={styles.actionTitle}>صور الموقع</span>
                             <span className={styles.actionDescription}>تحديث صور الصفحة الرئيسية والأقسام</span>
+                        </div>
+                    </Link>
+                    <Link href="/admin/seo-config" className={styles.actionCard}>
+                        <Settings className={styles.actionIcon} />
+                        <div className={styles.actionContent}>
+                            <span className={styles.actionTitle}>إعدادات SEO</span>
+                            <span className={styles.actionDescription}>تحسين محركات البحث والإعدادات العامة</span>
+                        </div>
+                    </Link>
+                    <Link href="/admin/link-mappings" className={styles.actionCard}>
+                        <Link2 className={styles.actionIcon} />
+                        <div className={styles.actionContent}>
+                            <span className={styles.actionTitle}>الروابط الداخلية</span>
+                            <span className={styles.actionDescription}>إدارة الكلمات المفتاحية والروابط التلقائية</span>
                         </div>
                     </Link>
                 </div>

@@ -11,7 +11,9 @@ import {
     LogOut,
     Menu,
     X,
-    Home
+    Home,
+    Settings,
+    Link2
 } from 'lucide-react';
 import styles from './Sidebar.module.css';
 
@@ -25,6 +27,8 @@ export default function Sidebar() {
         { name: 'الخدمات', path: '/admin/services', icon: Briefcase },
         { name: 'المدونة', path: '/admin/blogs', icon: FileText },
         { name: 'صور الموقع', path: '/admin/site-images', icon: ImageIcon },
+        { name: 'إعدادات SEO', path: '/admin/seo-config', icon: Settings },
+        { name: 'الروابط الداخلية', path: '/admin/link-mappings', icon: Link2 },
     ];
 
     const handleLogout = () => {

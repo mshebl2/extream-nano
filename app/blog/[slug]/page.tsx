@@ -3,6 +3,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import connectDB from "@/lib/db";
 import Blog from "@/models/Blog";
+import InternalLinkMapping from "@/models/InternalLinkMapping";
+import SEOConfig from "@/models/SEOConfig";
+import { applyInternalLinks } from "@/lib/seo-utils";
 import { notFound } from "next/navigation";
 
 export const dynamic = 'force-dynamic';
@@ -17,21 +20,51 @@ async function getBlogBySlug(slug: string) {
     } catch (e) {
       decodedSlug = slug; // If decoding fails, use original
     }
-    
+
     // Try to find blog with decoded slug first
     let blog = await Blog.findOne({ slug: decodedSlug }).lean();
-    
+
     // If not found, try with the original slug (in case it's stored encoded)
     if (!blog) {
       blog = await Blog.findOne({ slug: slug }).lean();
     }
-    
+
     if (!blog) return null;
+
+    // Get SEO config and link mappings for internal links
+    const seoConfig = await SEOConfig.findOne({ configKey: 'global' }).lean();
+    const globalAutoInternalLinks = seoConfig?.globalAutoInternalLinks ?? true;
+    const maxInternalLinksPerPost = seoConfig?.maxInternalLinksPerPost ?? 5;
+
+    // Get content to process
+    let processedContent = blog.contentAr || blog.content || '';
+
+    // Apply internal links if enabled
+    if (globalAutoInternalLinks && (blog.autoInternalLinks !== false)) {
+      const linkMappings = await InternalLinkMapping.find({ isActive: true })
+        .sort({ priority: -1 })
+        .lean();
+
+      if (linkMappings.length > 0) {
+        processedContent = applyInternalLinks(
+          processedContent,
+          linkMappings.map(m => ({
+            keyword: m.keyword,
+            keywordAr: m.keywordAr,
+            url: m.url,
+            maxOccurrences: m.maxOccurrences,
+            caseSensitive: m.caseSensitive,
+          })),
+          maxInternalLinksPerPost
+        );
+      }
+    }
 
     return {
       ...blog,
       _id: blog._id.toString(),
       image: blog.imageFileId ? `/api/images/${blog.imageFileId}` : blog.image,
+      processedContent,
     };
   } catch (error) {
     console.error('Error fetching blog by slug:', error);
@@ -104,22 +137,22 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </p>
 
           {/* Content */}
-          {(blog.contentAr || blog.content) && (
+          {blog.processedContent && (
             <div
-              className="prose prose-lg max-w-none text-right"
+              className="prose prose-lg max-w-none text-right blog-content"
               dir="rtl"
               dangerouslySetInnerHTML={{
-                __html: blog.contentAr || (blog as any).content || '',
+                __html: blog.processedContent,
               }}
             />
           )}
 
           {/* CTA Section */}
-          <section className="mt-16 py-12 bg-[#7F3F97] text-center text-white rounded-3xl">
+          <section className="blog-cta-section mt-16 py-12 bg-[#7F3F97] text-center text-white rounded-3xl">
             <h2 className="text-3xl font-bold text-[#e9cb1d] mb-4">
               جاهز لتجربة الأفضل؟
             </h2>
-            <p className="mb-6 text-lg">
+            <p className="mb-6 text-lg text-white" style={{ color: '#ffffff' }}>
               احجز موعدك الآن واستمتع بخدمة ممتازة لسيارتك في الرياض
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
