@@ -13,14 +13,6 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* وضع الداكن */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 /* إعدادات الصفحة العامة */
 body {
   background: var(--background);
@@ -39,23 +31,14 @@ article a:hover {
   color: #1d4ed8;
 }
 
-@media (prefers-color-scheme: dark) {
-  article a {
-    color: #60a5fa;
-  }
-
-  article a:hover {
-    color: #93c5fd;
-  }
-}
-
 /* ===== 🔗 تنسيق الروابط الداخلية ===== */
 .internal-link,
 .blog-content .internal-link,
 .blog-content a.internal-link,
 .prose .internal-link,
 .prose a.internal-link,
-article .internal-link {
+article .internal-link,
+article a.internal-link {
   color: #7F3F97 !important;
   text-decoration: underline;
   text-decoration-style: dotted;
@@ -130,7 +113,7 @@ article section[class*="bg-"] h2 {
   color: inherit !important;
 }
 
-/* Force white text on purple CTA section in both light and dark modes */
+/* Force white text on purple CTA section */
 .blog-cta-section p {
   color: #ffffff !important;
 }
@@ -143,7 +126,6 @@ article section[class*="bg-"] h2 {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  /* على اليمين */
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -178,12 +160,4 @@ article section[class*="bg-"] h2 {
 .call-btn {
   font-size: 32px;
   color: #0ea5e9;
-}
-
-/* الوضع الداكن */
-@media (prefers-color-scheme: dark) {
-  .floating-buttons a {
-    background: #1e1e1e;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
-  }
 }
