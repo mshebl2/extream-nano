@@ -82,19 +82,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       return { title: 'المقال غير موجود' };
     }
 
-    // اسم الموقع من ملف env
-    const siteName = process.env.NEXT_PUBLIC_SITE_NAME || "اكستريم نانو";
-
+    // **هنا تم حذف اسم الموقع تماما**
     return {
-      title: `${blog.titleAr} | ${siteName}`,
+      title: `${blog.titleAr}`,
       description: blog.descriptionAr,
       openGraph: {
-        title: `${blog.titleAr} | ${siteName}`,
+        title: `${blog.titleAr}`,
         description: blog.descriptionAr,
         images: blog.image ? [blog.image] : [],
       },
       twitter: {
-        title: `${blog.titleAr} | ${siteName}`,
+        title: `${blog.titleAr}`,
         description: blog.descriptionAr,
         images: blog.image ? [blog.image] : [],
       }
